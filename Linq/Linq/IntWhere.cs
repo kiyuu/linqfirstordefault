@@ -4,23 +4,11 @@ using System.Text;
 
 namespace Linq
 {
-    public class IntWhere : Linq
+    public class IntWhere : Linq<int>
     {
-        protected override bool Predicate(object element)
+        protected override bool Predicate(int element)
         {
-            if (element == null)
-            {
-                throw new ArgumentException("element is null");
-            }
-
-            if (!(element is int))
-            {
-                throw new ArgumentException("element' type is not integer");
-            }
-
-
-            int i = (int)element;
-            return i == 9;
+            return element == 9;
         }
     }
 }
