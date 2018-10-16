@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Linq
 {
-    public class IntWhere : Linq<int>
+    public class IntPredicate : Predicate<int>
     {
-        protected override bool Predicate(int element)
+        public bool Predicate(int element)
         {
             return element == 9;
         }

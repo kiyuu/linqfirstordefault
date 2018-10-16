@@ -5,18 +5,23 @@ using System.Text;
 
 namespace Linq
 {
-    public abstract class Linq<T>
+    public static class Linq
     {
-        public T FirstOrDefault(T[] source)
+        public static T FirstOrDefault<T>(T[] source, Predicate<T> predicate)
         {
-            if(source == null)
+            if (source == null)
+            {
+                throw new ArgumentException("null");
+            }
+
+            if(predicate == null)
             {
                 throw new ArgumentException("null");
             }
 
             foreach (var element in source)
             {
-                if (this.Predicate(element))
+                if (predicate.Predicate(element))
                 {
                     return element;
                 }
@@ -24,8 +29,5 @@ namespace Linq
 
             return default(T);
         }
-
-        protected abstract bool Predicate(T element);
-
     }
 }
