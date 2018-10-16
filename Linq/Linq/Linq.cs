@@ -1,48 +1,49 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Linq
 {
-    public class Linq
+    public abstract class Linq
     {
-        public int FirstOrDefault(int[] source)
+        public object FirstOrDefault(object[] source)
         {
-            foreach(var element in source)
+            if(source == null)
             {
-                if(element == 1)
-                {
-                    return element;
-                }
+                throw new ArgumentException("null");
             }
-            return default(int);
-        }
 
-        public bool FirstOrDefault(bool[] source)
-        {
+            // 型チェック必要…
+
+
             foreach (var element in source)
             {
-                if(element == true)
+                if (Predicate(element))
                 {
                     return element;
                 }
             }
-            return default(bool);
-        }
 
-        public string FirstOrDefault(string[] source)
-        {
-            foreach (var element in source)
+            if (source.All(s => s is int))
             {
-                if(element == "aaa")
-                {
-                    return element;
-                }
-
+                return default(int);
             }
-            return default(string);
+            else if (source.All(s => s is bool))
+            {
+                return default(bool);
+            }
+            else if (source.All(s => s is string))
+            {
+                return default(string[]);
+            }
+            else
+            {
+                throw new ArgumentException("type error");
+            }
         }
 
-        // 型が違う毎に作成………………………………
+        protected abstract bool Predicate(object element);
+
     }
 }
