@@ -21,7 +21,7 @@ namespace Linq
 
             foreach (var element in source)
             {
-                if (predicate.Predicate(element))
+                if (predicate(element))
                 {
                     return element;
                 }
