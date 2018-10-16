@@ -7,19 +7,12 @@ namespace Linq
     {
         static void Main(string[] args)
         {
-            var predicate = new Predicate<int>(Predicate);
-
-
             var source = new int[4] { 1, 2, 3, 9 };
-            var i = FirstOrDefault(source, predicate);
+            var i = FirstOrDefault(source, delegate (int element) { return element == 9; });
 
             Console.WriteLine($"i = {i}");
             Console.ReadLine();
         }
 
-        static bool Predicate(int element)
-        {
-            return element == 9;
-        }
     }
 }
