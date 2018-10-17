@@ -7,7 +7,7 @@ namespace Linq
 {
     public static class Linq
     {
-        public static T FirstOrDefault<T>(T[] source, Predicate<T> predicate)
+        public static T FirstOrDefault<T>(this T[] source, Predicate<T> predicate)
         {
             if (source == null)
             {
