@@ -5,12 +5,29 @@ namespace Linq
 {
     public static class Linq
     {
-        public static T FirstOrDefault<T>(this IEnumerable<T> source)
+        public static TSource FirstOrDefault<TSource>(this IEnumerable<TSource> source)
         {
-            return FirstOrDefault<T>(source, e => true);
+            if (source == null)
+            {
+                throw new ArgumentException("Null");
+            }
+
+            IList<TSource> list = source as IList<TSource>;
+            if (list != null)
+            {
+                if (list.Count > 0) return list[0];
+            }
+            else
+            {
+                using (IEnumerator<TSource> e = source.GetEnumerator())
+                {
+                    if (e.MoveNext()) return e.Current;
+                }
+            }
+            return default(TSource);
         }
 
-        public static T FirstOrDefault<T>(this IEnumerable<T> source, Predicate<T> predicate)
+        public static TSource FirstOrDefault<TSource>(this IEnumerable<TSource> source, Predicate<TSource> predicate)
         {
             if (source == null)
             {
@@ -30,7 +47,7 @@ namespace Linq
                 }
             }
 
-            return default(T);
+            return default(TSource);
         }
     }
 }
